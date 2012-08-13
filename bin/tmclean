@@ -1,0 +1,126 @@
+#!/usr/bin/env ruby
+
+def list
+  puts 'Getting the list of backups. Hold on a moment...'
+  `tmutil listbackups`.split("\n")
+end
+
+def ask(keep_backups, delete_backups)
+  puts ''
+  puts "Keep #{ keep_backups.length } recent backups."
+  puts 'Delete the following backups:'
+  puts ''
+  puts delete_backups
+
+  puts ''
+  puts 'Are you sure to delete these backups? (Y/N)'
+
+  if yes_or_no?
+    perform(delete_backups)
+  else
+    puts 'Cancelled.'
+  end
+
+rescue
+  puts 'Stupid, that\'s not a valid answer.'
+end
+
+def yes_or_no?
+  system('stty raw -echo')
+
+  case STDIN.getc.upcase
+  when 'Y'
+    true
+  when 'N'
+    false
+  else
+    raise 'Invalid character.'
+  end
+
+ensure
+  system('stty -raw echo')
+end
+
+def perform(backups)
+  puts ''
+  puts 'Deleting backups. You may want to grab some coffees, I\'ll take ages...'
+  puts ''
+
+  backups.each do |backup|
+    puts "Delete #{ backup }"
+    `sudo -u root tmutil delete "#{ backup }"`
+  end
+
+  puts ''
+  puts 'Done.'
+end
+
+#unless ENV['USER'] == 'root'
+#  puts 'Time Machine clean requires root privileges.'
+#  exit 2
+#end
+
+unless system('hash', 'tmutil')
+  puts 'The Time Machine command line utility `tmutil` was not found.'
+  exit 2
+end
+
+if ARGV.length == 0
+  puts 'Usage: tmclean last <number>'
+  puts '       tmclean keep <number>'
+  puts '       tmclean until <date description>'
+  exit 1
+else
+  case ARGV[0]
+  when 'keep'
+    begin
+      keep = Integer(ARGV[1])
+      backups = list
+      delete = backups.slice!(0, backups.length - keep)
+      ask backups, delete
+
+    rescue TypeError, ArgumentError
+      puts 'Usage: tmclean keep <number>'
+      exit 1
+    end
+
+  when 'last'
+    begin
+      last = Integer(ARGV[1])
+      backups = list
+      delete = backups.slice!(0, last)
+      ask backups, delete
+
+    rescue TypeError, ArgumentError
+      puts 'Usage: tmclean last <number>'
+      exit 1
+    end
+
+  when 'until'
+    require 'chronic'
+    ARGV.shift
+    time = Chronic.parse(ARGV.join(' '), :context => :past)
+
+    if time
+      backups = list
+
+      delete_or_keep = backups.partition do |backup|
+        time < Date.parse(backup.match(/(\d{4}-\d{2}-\d{2})/)[1]).to_time
+      end
+
+      ask delete_or_keep[0], delete_or_keep[1]
+
+    else
+      puts 'Cannot parse date description.'
+      puts 'Usage: tmclean until <date description>'
+      exit 1
+    end
+
+  else
+    puts 'Usage: tmclean last <number>'
+    puts '       tmclean keep <number>'
+    puts '       tmclean until <date description>'
+    exit 1
+
+  end
+end

@@ -1,0 +1,19 @@
+PATH
+  remote: .
+  specs:
+    tmclean (0.1.0)
+      chronic
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    chronic (0.7.0)
+    rake (0.9.2.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bundler
+  rake
+  tmclean!
