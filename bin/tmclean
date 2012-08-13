@@ -55,10 +55,10 @@ def perform(backups)
   puts 'Done.'
 end
 
-#unless ENV['USER'] == 'root'
-#  puts 'Time Machine clean requires root privileges.'
-#  exit 2
-#end
+unless ENV['USER'] == 'root'
+  puts 'Time Machine clean requires root privileges.'
+  exit 2
+end
 
 unless system('hash', 'tmutil')
   puts 'The Time Machine command line utility `tmutil` was not found.'
