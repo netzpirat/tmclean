@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 Gem::Specification.new do |s|
   s.name        = 'tmclean'
-  s.version     = '0.1.0'
+  s.version     = '0.1.1'
   s.platform    = Gem::Platform::RUBY
   s.authors     = ['Michael Kessler']
   s.email       = ['michi@netzpiraten.ch']
