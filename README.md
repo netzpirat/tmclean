@@ -3,17 +3,17 @@
 Clean old Time Machine backups with ease! You know, when you have backups from several machines on a single drive and
 not a single one wants to backup anymore...
 
-TMClean requires root privileges to delete the Time Machine backups.
-
 ## Installation
 
 Simply install from [RubyGems](https://rubygems.org/):
 
 ```Bash
-$ sudo gem install tmclean
+$ gem install tmclean
 ```
 
 ## Usage
+
+See the usage by just type `tmclean`:
 
 ```Bash
 $ tmclean                                                                                                                                                          ruby-1.9.3-p194 1↵
@@ -22,12 +22,15 @@ Usage: tmclean last <number>
        tmclean until <date description>
 ```
 
+TMClean requires root privileges to delete the Time Machine backups. If you use [RVM](https://rvm.io/),
+then you simply can use `rvmsudo`, otherwise use `sudo su -`.
+
 ### Last
 
 You can say how many backups you want to remove from Time Machine:
 
 ```Bash
-$ sudo tmclean last 2
+$ rvmsudo tmclean last 2
 Getting the list of backups. Hold on a moment...
 
 Keep 53 recent backups.
@@ -51,7 +54,7 @@ Done.
 You can say how many backups you want to keep, the rest is removed from Time Machine:
 
 ```Bash
-$ sudo tmclean keep 50
+$ rvmsudo tmclean keep 50
 Getting the list of backups. Hold on a moment...
 
 Keep 50 recent backups.
@@ -77,7 +80,7 @@ Done.
 You can say which date the backups should be removed from Time Machine:
 
 ```Bash
-$ sudo tmclean until 3 months ago
+$ rvmsudo tmclean until 3 months ago
 Getting the list of backups. Hold on a moment...
 
 Keep 36 recent backups.
