@@ -43,7 +43,7 @@ end
 
 def perform(backups)
   puts ''
-  puts 'Deleting backups. You may want to grab some coffees, I\'ll take ages...'
+  puts 'Deleting backups. You may want to grab some coffee, it takes ages...'
   puts ''
 
   backups.each do |backup|
