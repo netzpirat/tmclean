@@ -41,7 +41,7 @@ Delete the following backups:
 
 Are you sure to delete these backups? (Y/N)
 
-Deleting backups. You may want to grab some coffees, I'll take ages...
+Deleting backups. You may want to grab some coffee, it takes ages...
 
 Delete /Volumes/Time Machine Backups/Backups.backupdb/otherland/2011-12-16-004025
 Delete /Volumes/Time Machine Backups/Backups.backupdb/otherland/2011-12-23-002310
@@ -66,7 +66,7 @@ Delete the following backups:
 
 Are you sure to delete these backups? (Y/N)
 
-Deleting backups. You may want to grab some coffees, I'll take ages...
+Deleting backups. You may want to grab some coffee, it takes ages...
 
 Delete /Volumes/Time Machine Backups/Backups.backupdb/otherland/2011-12-30-000535
 Delete /Volumes/Time Machine Backups/Backups.backupdb/otherland/2012-01-07-174853
